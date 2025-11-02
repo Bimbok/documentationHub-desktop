@@ -30,8 +30,8 @@ The app displays documentation cards in a responsive grid. Click any card to vie
 ### 1. Clone or Download the Repository
 
 ```bash
-git clone <your-repo-url>
-cd bimbokdocs
+git clone https://github.com/Bimbok/documentationHub-desktop.git
+cd documentationHub-desktop
 ```
 
 ### 2. Create Virtual Environment
