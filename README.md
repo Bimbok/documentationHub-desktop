@@ -17,6 +17,12 @@ A modern, dark-themed documentation viewer built with Python and Flet. Browse, s
 
 ## Screenshots
 
+<img width="1920" height="1048" alt="Image" src="https://github.com/user-attachments/assets/4f160728-ff67-45a8-91fa-531237a0f518" />
+<img width="1920" height="1048" alt="Image" src="https://github.com/user-attachments/assets/c7a5bf63-7a90-436a-93cb-eab2f13b2ece" />
+<img width="1920" height="1048" alt="Image" src="https://github.com/user-attachments/assets/8122251b-4b33-4c7a-9cba-a82f1a170a14" />
+<img width="1920" height="1048" alt="Image" src="https://github.com/user-attachments/assets/0bea73a0-b525-4f78-a44e-b42e4dcfac07" />
+<img width="1920" height="1048" alt="Image" src="https://github.com/user-attachments/assets/674c8dd4-9a49-4683-ba39-c40904b4057e" />
+
 The app displays documentation cards in a responsive grid. Click any card to view the full document with syntax-highlighted code examples.
 
 ## Prerequisites
