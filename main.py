@@ -4,7 +4,11 @@ import os
 from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
 from dotenv import load_dotenv
 
-load_dotenv()
+assets_dir = os.path.abspath("assets")
+env_path = os.path.join(assets_dir, ".env")
+
+
+load_dotenv(env_path)
 
 MONGODB_URI = os.environ.get("MONGODB_URI")
 DATABASE_NAME = "bdoci"
@@ -32,7 +36,9 @@ class DocCard(ft.Container):
                                     ),
                                     ft.Container(
                                         content=ft.Text(
-                                            doc.get("category", "Uncategorized").upper(),
+                                            doc.get(
+                                                "category", "Uncategorized"
+                                            ).upper(),
                                             size=10,
                                             weight=ft.FontWeight.W_600,
                                             color="#00FF88",
@@ -83,7 +89,7 @@ def main(page: ft.Page):
     page.padding = 0  # We'll use custom padding for main content
     page.fonts = {
         "Inter": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
-        "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"
+        "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap",
     }
     page.theme = ft.Theme(
         font_family="Inter",
@@ -106,8 +112,14 @@ def main(page: ft.Page):
             [
                 ft.ProgressRing(color="#00FF88", stroke_width=4, width=40, height=40),
                 ft.Container(height=20),
-                ft.Text("Initializing Documentation Hub...", size=18, weight=ft.FontWeight.W_500),
-                ft.Text("Connecting to MongoDB Atlas", size=14, color=ft.Colors.WHITE70),
+                ft.Text(
+                    "Initializing Documentation Hub...",
+                    size=18,
+                    weight=ft.FontWeight.W_500,
+                ),
+                ft.Text(
+                    "Connecting to MongoDB Atlas", size=14, color=ft.Colors.WHITE70
+                ),
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             alignment=ft.MainAxisAlignment.CENTER,
@@ -137,8 +149,14 @@ def main(page: ft.Page):
                     [
                         ft.Icon(ft.Icons.WIFI_OFF_ROUNDED, color="#FF4444", size=64),
                         ft.Container(height=20),
-                        ft.Text("Connection Failed", size=24, weight=ft.FontWeight.BOLD),
-                        ft.Text(f"Could not reach MongoDB: {e}", color=ft.Colors.WHITE70, text_align=ft.TextAlign.CENTER),
+                        ft.Text(
+                            "Connection Failed", size=24, weight=ft.FontWeight.BOLD
+                        ),
+                        ft.Text(
+                            f"Could not reach MongoDB: {e}",
+                            color=ft.Colors.WHITE70,
+                            text_align=ft.TextAlign.CENTER,
+                        ),
                         ft.Container(height=20),
                         ft.ElevatedButton(
                             "Retry Connection",
@@ -183,7 +201,9 @@ def main(page: ft.Page):
                                     ),
                                     ft.Container(
                                         content=ft.Text(
-                                            doc.get("category", "Uncategorized").upper(),
+                                            doc.get(
+                                                "category", "Uncategorized"
+                                            ).upper(),
                                             size=12,
                                             weight=ft.FontWeight.W_600,
                                             color="#00FF88",
@@ -216,7 +236,12 @@ def main(page: ft.Page):
                     on_tap_link=lambda e: page.launch_url(e.data),
                 ),
                 ft.Container(height=20),
-                ft.Text("Code Example", style=ft.TextThemeStyle.TITLE_MEDIUM, weight=ft.FontWeight.BOLD, color="#00FF88"),
+                ft.Text(
+                    "Code Example",
+                    style=ft.TextThemeStyle.TITLE_MEDIUM,
+                    weight=ft.FontWeight.BOLD,
+                    color="#00FF88",
+                ),
                 ft.Container(
                     content=ft.Markdown(
                         f"```python\n{doc.get('code', '# No code found')}\n```",
@@ -265,8 +290,10 @@ def main(page: ft.Page):
             if current_category == "All":
                 filtered_docs = all_docs
             else:
-                filtered_docs = [d for d in all_docs if d.get("category") == current_category]
-        
+                filtered_docs = [
+                    d for d in all_docs if d.get("category") == current_category
+                ]
+
         docs_grid.controls = create_cards(filtered_docs)
         docs_grid.update()
 
@@ -275,7 +302,11 @@ def main(page: ft.Page):
         if not search_term:
             update_grid()
         else:
-            base_docs = all_docs if current_category == "All" else [d for d in all_docs if d.get("category") == current_category]
+            base_docs = (
+                all_docs
+                if current_category == "All"
+                else [d for d in all_docs if d.get("category") == current_category]
+            )
             filtered_docs = [
                 doc
                 for doc in base_docs
@@ -307,8 +338,10 @@ def main(page: ft.Page):
     )
 
     # Get unique categories
-    categories = sorted(list(set(doc.get("category", "Uncategorized") for doc in all_docs)))
-    
+    categories = sorted(
+        list(set(doc.get("category", "Uncategorized") for doc in all_docs))
+    )
+
     rail_destinations = [
         ft.NavigationRailDestination(
             icon=ft.Icons.ALL_INBOX_OUTLINED,
